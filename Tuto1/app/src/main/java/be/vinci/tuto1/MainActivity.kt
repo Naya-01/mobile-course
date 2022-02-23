@@ -4,10 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EmojiPeople
 import androidx.compose.runtime.Composable
@@ -28,6 +25,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Greeting("Android")
+                    EditName(oldName = "mon test") { println(it) }
                 }
             }
         }
@@ -51,6 +49,22 @@ fun Greeting(name: String) {
                 contentDescription = "Waving person",
             )
         }
+    }
+}
+
+@Composable
+fun EditName(oldName: String, changeName: (String) -> Unit) {
+    Column {
+        Text(
+            text = "Change your name:",
+            style = MaterialTheme.typography.subtitle1
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(
+            value = oldName,
+            onValueChange = changeName,
+            label = { Text(text = "Name") }
+        )
     }
 }
 
