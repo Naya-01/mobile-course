@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.EmojiPeople
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,13 +19,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Tuto1Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                    EditName(oldName = "mon test") { println(it) }
+                var name by remember { mutableStateOf("Android") }
+                Surface(modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
+                        Greeting(name)
+                        Spacer(modifier = Modifier.height(64.dp))
+                        EditName(name) { newName -> name = newName }
+                        // or { name = it }
+                    }
                 }
             }
         }
@@ -73,5 +78,7 @@ fun EditName(oldName: String, changeName: (String) -> Unit) {
 fun DefaultPreview() {
     Tuto1Theme {
         Greeting("Android")
+        Spacer(modifier = Modifier.height(64.dp))
+        EditName(oldName = "mon test") { println(it) }
     }
 }
