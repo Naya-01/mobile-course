@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent { //point d'entree du framework
+            var valeur by remember { mutableStateOf(0) }
             Exercice1Theme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -27,7 +28,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column(
                     ) {
-                        printClick(0)
+                        printClick(valeur)
+                        myButton(){valeur++}
 
                     }
                 }
@@ -56,6 +58,18 @@ fun printClick(valeur: Int) {
     }
 }
 
+@Composable
+fun myButton(updateEntier: () -> Unit){
+    Button(onClick = { updateEntier()}, modifier = Modifier.padding(8.dp)) {
+        Text(text = "Increase your clicks")
+        Icon(
+            imageVector = Icons.Default.TrendingUp,
+            contentDescription = null,
+            modifier = Modifier.padding(start = 4.dp)
+        )
+
+    }
+}
 
 
 @Preview(showBackground = true)
@@ -64,7 +78,7 @@ fun DefaultPreview() {
     Exercice1Theme {
         Column() {
             printClick(0)
-
+            myButton(){0}
         }
     }
 }
