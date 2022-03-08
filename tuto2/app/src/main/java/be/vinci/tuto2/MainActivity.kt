@@ -23,6 +23,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     Greeting("Android")
+                    ProfileList(profiles = getProfiles(), action = {})
                 }
             }
         }
@@ -39,5 +40,6 @@ fun Greeting(name: String) {
 fun DefaultPreview() {
     Tuto2Theme {
         Greeting("Android")
+        ProfileList(profiles = getProfiles(), action = {})
     }
 }
