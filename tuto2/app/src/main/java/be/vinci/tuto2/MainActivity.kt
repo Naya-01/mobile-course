@@ -3,6 +3,7 @@ package be.vinci.tuto2
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -39,7 +40,8 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     Tuto2Theme {
-        Greeting("Android")
-        ProfileList(profiles = getProfiles(), action = {})
+        Column() {
+            Greeting("Android")
+        }
     }
 }

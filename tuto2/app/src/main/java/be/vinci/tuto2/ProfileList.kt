@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import be.vinci.tuto2.ui.theme.Tuto2Theme
 
 
-
-    @Composable
+@Composable
     fun ProfileList(profiles: List<Profile>, action: (Profile) -> Unit) {
         Scaffold(
             topBar = {
@@ -44,3 +44,13 @@ import androidx.compose.ui.unit.dp
     }
 
 
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreviewProfileList() {
+    Tuto2Theme {
+        Column() {
+            Greeting("Android")
+            ProfileList(profiles = getProfiles(), action = {})
+        }
+    }
+}
