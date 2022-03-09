@@ -10,12 +10,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import be.vinci.exo2.ui.theme.Exo2Theme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            var title by remember { mutableStateOf("") }
+            var content by remember { mutableStateOf("") }
+            var listNote = listOf<Note>()+ getNote()
+
+            val navController = rememberNavController()
             Exo2Theme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -27,6 +35,23 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center,
                     ) {
 
+                        NavHost(navController = navController, startDestination = "/notes")
+                        {
+                            composable("/notes") {
+                                NoteList(
+                                    notes = listNote,
+                                    action = { note -> navController.navigate("/note/${note.id}") },
+                                    title = title, content = content,
+                                    { newTitle -> title = newTitle },
+                                    { newContent -> content = newContent }
+                                )
+                            }
+                            composable("/note/{id}") { navBackStackEntry ->
+                                val id = navBackStackEntry.arguments!!.getString("id")!!
+                                val profile = listNote.first { it.id == id.toInt() }
+                                NoteScreen(profile) { navController.popBackStack() }
+                            }
+                        }
                     }
                 }
             }
