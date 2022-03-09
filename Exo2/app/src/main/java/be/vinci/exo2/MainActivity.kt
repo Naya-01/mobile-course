@@ -21,8 +21,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             var title by remember { mutableStateOf("") }
             var content by remember { mutableStateOf("") }
-            var listNote = listOf<Note>()+ getNote()
-
+            var listNote = mutableStateListOf<Note>()
+            for (item in getNote()){
+                listNote.add(item)
+            }
+            var nb by remember { mutableStateOf(listNote.size)}
             val navController = rememberNavController()
             Exo2Theme {
                 // A surface container using the 'background' color from the theme
@@ -43,7 +46,7 @@ class MainActivity : ComponentActivity() {
                                     action = { note -> navController.navigate("/note/${note.id}") },
                                     title = title, content = content,
                                     { newTitle -> title = newTitle },
-                                    { newContent -> content = newContent }
+                                    { newContent -> content = newContent },
                                 )
                             }
                             composable("/note/{id}") { navBackStackEntry ->
@@ -69,7 +72,7 @@ fun DefaultPreview() {
             verticalArrangement = Arrangement.Center,
         ) {
 
-//            NoteList(notes = mutableListOf(), action = {}, "", "", { it }, { it })
+            NoteList(notes = mutableListOf(), action = {}, "", "", { it }, { it })
         }
     }
 }

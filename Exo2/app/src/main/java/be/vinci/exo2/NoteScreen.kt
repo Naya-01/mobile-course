@@ -41,7 +41,7 @@ fun NoteScreen(note: Note, back: () -> Unit) {
             }
             Spacer(modifier = Modifier.height(24.dp))
             Text(
-                text = note.content,
+                text = note.title,
                 style = MaterialTheme.typography.body2,
                 textAlign = TextAlign.Justify,
                 letterSpacing = 1.sp,

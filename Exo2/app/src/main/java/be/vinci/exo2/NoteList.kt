@@ -18,7 +18,7 @@ import be.vinci.exo2.ui.theme.Exo2Theme
 
 @Composable
 fun NoteList(
-    notes: List<Note>, action: (Note) -> Unit,
+    notes: MutableList<Note>, action: (Note) -> Unit,
     title: String,
     content: String,
     changeTitle: (String) -> Unit,
@@ -60,7 +60,7 @@ fun NoteList(
                             .height(50.dp)
                             .weight(1f)
                     ) {
-                        IconButton(onClick = {}) {
+                        IconButton(onClick = { notes.remove(note) }) {
                             Icon(
                                 imageVector = Icons.Default.Delete,
                                 contentDescription = null,
@@ -72,11 +72,13 @@ fun NoteList(
 
                 Divider()
             }
-                AddNote(title = title,
-                    content = content,
-                    changeTitle = changeTitle,
-                    changeContent = changeContent,
-                    notes = notes )
+            AddNote(
+                title = title,
+                content = content,
+                changeTitle = changeTitle,
+                changeContent = changeContent,
+                notes = notes,
+            )
         }
     }
 }
@@ -88,7 +90,7 @@ fun AddNote(
     content: String,
     changeTitle: (String) -> Unit,
     changeContent: (String) -> Unit,
-    notes: List<Note>
+    notes: MutableList<Note>,
 ) {
     Box(
         modifier = Modifier
@@ -125,7 +127,7 @@ fun AddNote(
             .height(80.dp)
     ) {
         Button(
-            onClick = {  },
+            onClick = { notes.add(Note(getId(notes), title = title, content = content)) },
             contentPadding = PaddingValues(
                 start = 20.dp,
                 top = 12.dp,
@@ -147,13 +149,17 @@ fun AddNote(
 
 }
 
+fun getId(notes: List<Note>): Int {
+    if(notes.isEmpty()) return 1;
+    return notes.last().id+1;
+}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreviewNoteList() {
     Exo2Theme() {
         Column() {
-            NoteList(notes = getNote(), action = {}, "", "", {}, {})
+            NoteList(notes = mutableListOf(), action = {}, "", "", {}, {})
         }
     }
 }
