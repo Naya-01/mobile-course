@@ -19,8 +19,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            var title by remember { mutableStateOf("") }
-            var content by remember { mutableStateOf("") }
             var listNote = mutableStateListOf<Note>()
             for (item in getNote()){
                 listNote.add(item)
@@ -44,9 +42,6 @@ class MainActivity : ComponentActivity() {
                                 NoteList(
                                     notes = listNote,
                                     action = { note -> navController.navigate("/note/${note.id}") },
-                                    title = title, content = content,
-                                    { newTitle -> title = newTitle },
-                                    { newContent -> content = newContent },
                                 )
                             }
                             composable("/note/{id}") { navBackStackEntry ->
@@ -72,7 +67,7 @@ fun DefaultPreview() {
             verticalArrangement = Arrangement.Center,
         ) {
 
-            NoteList(notes = mutableListOf(), action = {}, "", "", { it }, { it })
+            NoteList(notes = mutableListOf(), action = {})
         }
     }
 }

@@ -8,8 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.NoteAdd
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,10 +18,6 @@ import be.vinci.exo2.ui.theme.Exo2Theme
 @Composable
 fun NoteList(
     notes: MutableList<Note>, action: (Note) -> Unit,
-    title: String,
-    content: String,
-    changeTitle: (String) -> Unit,
-    changeContent: (String) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -72,11 +67,8 @@ fun NoteList(
 
                 Divider()
             }
+
             AddNote(
-                title = title,
-                content = content,
-                changeTitle = changeTitle,
-                changeContent = changeContent,
                 notes = notes,
             )
         }
@@ -86,12 +78,10 @@ fun NoteList(
 
 @Composable
 fun AddNote(
-    title: String,
-    content: String,
-    changeTitle: (String) -> Unit,
-    changeContent: (String) -> Unit,
     notes: MutableList<Note>,
 ) {
+    var title by remember { mutableStateOf("") }
+    var content by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -99,7 +89,7 @@ fun AddNote(
     ) {
         OutlinedTextField(
             value = title,
-            onValueChange = changeTitle,
+            onValueChange = {title = it},
             label = { Text(text = "New note title") },
             modifier = Modifier
                 .align(Alignment.Center)
@@ -113,7 +103,7 @@ fun AddNote(
     ) {
         OutlinedTextField(
             value = content,
-            onValueChange = changeContent,
+            onValueChange = {content = it},
             label = { Text(text = "New content") },
             modifier = Modifier
                 .align(Alignment.Center)
@@ -159,7 +149,7 @@ fun getId(notes: List<Note>): Int {
 fun DefaultPreviewNoteList() {
     Exo2Theme() {
         Column() {
-            NoteList(notes = mutableListOf(), action = {}, "", "", {}, {})
+            NoteList(notes = mutableListOf(), action = {})
         }
     }
 }
