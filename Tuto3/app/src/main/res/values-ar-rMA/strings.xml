@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tuto3</string>
+    <string name="create_movie">faire un film</string>
+    <string name="update_movie">modifier un film</string>
+    <string name="back">revenir</string>
+    <string name="title">le titre</string>
+</resources>
