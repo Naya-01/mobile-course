@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Tuto3</string>
+    <string name="create_movie">Create movie</string>
+    <string name="update_movie">Update movie</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="title">Title</string>
+    <string name="director">Director</string>
+    <string name="year">Year</string>
+    <string name="liked">Liked</string>
+    <string name="in_watchlist">In watchlist</string>
+    <string name="critic">Critic</string>
+    <string name="movie_detail">Movie detail</string>
+    <string name="add_to_list">Add to list</string>
+    <string name="like">Like</string>
+    <string name="update">Update</string>
+    <string name="liked_watchlist">Liked movies in watchlist</string>
+    <string name="watchlist">Movies in watchlist</string>
+    <string name="liked_movies">Liked movies</string>
+    <string name="list_of_movies">All movies</string>
+    <string name="filter_watchlist">Filter watchlist</string>
+    <string name="filter_likes">Filter likes</string>
+    <string name="create">Create</string>
+    <string name="delete">Delete</string>
+</resources>
