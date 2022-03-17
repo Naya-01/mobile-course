@@ -1,7 +1,11 @@
 package be.vinci.tuto3.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Movie(
-    val id: Long = getNextId(),
+    @PrimaryKey(autoGenerate = true) var id: Long = 0,
     var title: String,
     var director: String,
     var year: Int,
