@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">exo3</string>
-    <string name="create_Todo">Créer une note</string>
-    <string name="update_Todo">Mettre à jour une note</string>
-    <string name="back">Revenir</string>
-    <string name="save">Sauvegarder</string>
-    <string name="title">Titre</string>
-    <string name="text">Texte</string>
+    <string name="todo_list">Liste de tâche à faire</string>
+    <string name="filtering_important">Filtrer par importance</string>
+    <string name="not_filtering_important">Non filtrer par importance</string>
+    <string name="show_done">Voir tâches faites</string>
+    <string name="hide_done">Voir tâche non faites</string>
     <string name="important">Important</string>
-    <string name="done">Fait</string>
-    <string name="todo_detail">détail note</string>
-    <string name="add_to_list">ajouter à la liste</string>
-    <string name="update">mettre à jour</string>
-    <string name="done_list">liste des tâches faites</string>
-    <string name="important_list">listes des tâches importante</string>
-    <string name="list_of_notes">toutes les notes</string>
-    <string name="filter_important">filter par importance</string>
-    <string name="filter_done">filter par tache faites</string>
-    <string name="create">Creer</string>
-    <string name="delete">Supprimer</string>
+    <string name="not_important">Pas important</string>
+    <string name="done">"Fait "</string>
+    <string name="not_done">Non fait</string>
+    <string name="new_todo">Nouvelle tâche</string>
+    <string name="create_todo">Créer une tâche</string>
 </resources>
