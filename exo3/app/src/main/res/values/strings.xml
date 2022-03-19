@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">exo3</string>
+    <string name="todo_list">To do list</string>
+    <string name="filtering_important">Filtering important to do</string>
+    <string name="not_filtering_important">Not filtering important to do</string>
+    <string name="show_done">Showing to do done</string>
+    <string name="hide_done">Hiding to do done</string>
+    <string name="important">Important</string>
+    <string name="not_important">Not important</string>
+    <string name="done">Done</string>
+    <string name="not_done">Not done</string>
+    <string name="new_todo">New todo text</string>
+    <string name="create_todo">Create to do</string>
+</resources>
