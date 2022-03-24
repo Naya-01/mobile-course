@@ -24,7 +24,7 @@ class WordViewModel: ViewModel() {
     fun refreshWord() { word = words.randomOrNull() }
     fun refresh() {
         viewModelScope.launch {
-            words = client.get("http://172.30.0.1/words")
+            words = client.get("http://10.0.2.2:3000/words")
         }
     }
 }
