@@ -25,7 +25,7 @@ class JokeViewModel : ViewModel() {
 
     fun refreshJoke(category: String) {
 //        joke = jokes.stream().filter() fonctionne pas wlh
-        joke = jokes.filter { joke -> joke.category == category }.randomOrNull()
+         joke = jokes.filter { joke -> joke.category == category }.randomOrNull()
     }
 
     fun refresh() {
