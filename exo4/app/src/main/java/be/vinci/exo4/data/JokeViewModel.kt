@@ -30,6 +30,7 @@ class JokeViewModel : ViewModel() {
     fun refresh() {
         viewModelScope.launch {
             jokes = client.get("http://10.0.2.2:3000/jokes")
+//            println("les jokes hihi "+ jokes)
         }
     }
 }

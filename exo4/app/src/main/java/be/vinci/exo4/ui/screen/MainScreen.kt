@@ -22,8 +22,7 @@ import be.vinci.exo4.data.Joke
 import be.vinci.exo4.data.JokeViewModel
 
 @Composable
-fun MainScreen() {
-    val jokeViewModel = viewModel<JokeViewModel>()
+fun MainScreen(jokeViewModel: JokeViewModel, updateCategory: (String) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -50,7 +49,7 @@ fun MainScreen() {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .weight(0.5f)
-                    .clickable { },
+                    .clickable { updateCategory("Christmas") },
             )
             Image(
                 painter = painterResource(R.drawable.pun),
@@ -58,7 +57,7 @@ fun MainScreen() {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .weight(0.5f)
-                    .clickable { },
+                    .clickable { updateCategory("Pun") },
             )
             Image(
                 painter = painterResource(R.drawable.programming),
@@ -66,7 +65,7 @@ fun MainScreen() {
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .weight(0.5f)
-                    .clickable { },
+                    .clickable { updateCategory("Programming") }
             )
 
         }
