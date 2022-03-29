@@ -4,8 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.capitalize
@@ -20,19 +19,22 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun JokeScreen(jokeViewModel: JokeViewModel, category: String, back: () -> Unit) {
+    var ok by  remember { mutableStateOf(false) }
     LaunchedEffect(true) {
         jokeViewModel.refreshJoke(category = category)
         delay(5000)
-
+        ok=true;
     }
     Scaffold(topBar = {
         TopAppBar(title = { Text(text = "A joke of $category ") },
             navigationIcon = {
-                IconButton(onClick = { back() }) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back"
-                    )
+                if(ok){
+                    IconButton(onClick = { back() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 }
             }
         )
@@ -56,7 +58,9 @@ fun JokeScreen(jokeViewModel: JokeViewModel, category: String, back: () -> Unit)
                     .weight(0.5f)
                     .wrapContentHeight(),
             )
-            AnswerPopUp(jokeViewModel = jokeViewModel)
+            if(ok){
+                AnswerPopUp(jokeViewModel = jokeViewModel)
+            }
         }
     }
 
