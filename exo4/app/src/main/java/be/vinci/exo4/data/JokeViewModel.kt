@@ -24,13 +24,13 @@ class JokeViewModel : ViewModel() {
     }
 
     fun refreshJoke(category: String) {
-//        joke = jokes.stream().filter() fonctionne pas wlh
          joke = jokes.filter { joke -> joke.category == category }.randomOrNull()
     }
 
     fun refresh() {
         viewModelScope.launch {
             jokes = client.get("http://10.0.2.2:3000/jokes")
+//            println("les jokes hihi "+ jokes)
         }
     }
 }

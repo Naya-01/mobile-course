@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,23 +22,20 @@ import be.vinci.exo4.data.Joke
 import be.vinci.exo4.data.JokeViewModel
 
 @Composable
-fun MainScreen() {
+fun MainScreen(jokeViewModel: JokeViewModel, updateCategory: (String) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Discover new jokes") },
-                navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back"
-                        )
+                actions =
+                {
+                    IconButton(
+                        onClick = { jokeViewModel.refresh() }) {
+                        Icon(Icons.Default.Refresh, contentDescription = "Refresh")
                     }
-                },
-            )
+                })
         }
-    ){
-        val jokeViewModel = viewModel<JokeViewModel>()
+    ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,30 +47,31 @@ fun MainScreen() {
                 painter = painterResource(R.drawable.christmas),
                 contentDescription = "Dictionary",
                 contentScale = ContentScale.Fit,
-                modifier = Modifier.weight(0.5f)
-                    .clickable {  },
+                modifier = Modifier
+                    .weight(0.5f)
+                    .clickable { updateCategory("Christmas") },
             )
             Image(
                 painter = painterResource(R.drawable.pun),
                 contentDescription = "Dictionary",
                 contentScale = ContentScale.Fit,
-                modifier = Modifier.weight(0.5f),
+                modifier = Modifier
+                    .weight(0.5f)
+                    .clickable { updateCategory("Pun") },
             )
             Image(
                 painter = painterResource(R.drawable.programming),
                 contentDescription = "Dictionary",
                 contentScale = ContentScale.Fit,
-                modifier = Modifier.weight(0.5f),
+                modifier = Modifier
+                    .weight(0.5f)
+                    .clickable { updateCategory("Programming") }
             )
 
         }
 
 
-
     }
-
-
-
 
 
 }
