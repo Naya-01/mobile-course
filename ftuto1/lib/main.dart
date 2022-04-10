@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:ftuto1/my_oeschinen_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -110,6 +111,7 @@ class MyApp extends StatelessWidget {
             titleSection,
             buttonSection,
             textSection,
+            const MyOeschinenCard()
           ],
         ),
       ),
