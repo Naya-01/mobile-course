@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:ftuto1/my_oeschinen_card.dart';
+import 'package:ftuto1/my_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -102,16 +103,19 @@ class MyApp extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            Image.asset(
-              'images/lake.jpg',
-              width: 600,
-              height: 240,
-              fit: BoxFit.cover,
-            ),
+            Image.asset('images/lake.jpg',
+                width: 600, height: 240, fit: BoxFit.cover),
             titleSection,
             buttonSection,
             textSection,
-            const MyOeschinenCard()
+            const MyOeschinenCard(),
+            const MyCard(title1: "Title 1"), // New code
+            const MyCard(
+              imageUri: "images/lake.jpg",
+              title1: "Oeschinen Lake Camping",
+              title2: "CH",
+              description: "Wow... Nowhere is better than this...",
+            ), // New code
           ],
         ),
       ),
