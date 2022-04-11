@@ -3,6 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:ftuto1/my_oeschinen_card.dart';
 import 'package:ftuto1/my_card.dart';
 
+
+const places = [
+  {
+    "title1": "Lausanne",
+    "title2": "Geneva lake",
+    "description": "The sun is..."
+  },
+  {"title1": "Bern", "title2": "Place fédérale"},
+  {
+    "title1": "Aigle",
+    "title2": "Le château entouré de vignes",
+    "descriptin": "Il était une fois..."
+  }
+];
+
+
 void main() {
   runApp(const MyApp());
 }
@@ -84,17 +100,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = Theme.of(context).primaryColor;
-
-    Widget buttonSection = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildButtonColumn(color, Icons.call, 'CALL'),
-        _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
-        _buildButtonColumn(color, Icons.share, 'SHARE'),
-      ],
-    );
-
+    var allCardNoCards = List.generate(
+      // type is inferred (List<Widget>)
+        10,
+            (index) =>
+            MyCard(
+              title1: "Card N°$index",
+            ));
+    final allPlacesCards =
+    []; // type is inferred (List<dynamic>) and the variable is final
+    //(single assignment)
+    for (var i = 1; i <= 10; ++i) {
+      allPlacesCards.add(MyCard(
+        title1: "Amazing place N°$i",
+      ));
+    }
+    final swissCards = places.map((location) =>
+        MyCard(
+            title1: location["title1"] ?? "Title1 TBD",
+            title2: location["title2"] ?? "Title2 TBD",
+            description: location["description"],
+            imageUri: location["imageUri"] ?? "images/default.jpg")).toList();
+// type would be iterable<MyCards> without toList()
     return MaterialApp(
       title: 'Flutter layout demo',
       home: Scaffold(
@@ -102,21 +129,11 @@ class MyApp extends StatelessWidget {
           title: const Text('Flutter layout demo'),
         ),
         body: ListView(
-          children: [
-            Image.asset('images/lake.jpg',
-                width: 600, height: 240, fit: BoxFit.cover),
-            titleSection,
-            buttonSection,
-            textSection,
-            const MyOeschinenCard(),
-            const MyCard(title1: "Title 1"), // New code
-            const MyCard(
-              imageUri: "images/lake.jpg",
-              title1: "Oeschinen Lake Camping",
-              title2: "CH",
-              description: "Wow... Nowhere is better than this...",
-            ), // New code
-          ],
+            children: [...allCardNoCards, ...allPlacesCards, ...swissCards]
+          // instead of "Spread operator" "..." to concatenate three lists,
+          // allCardNoCards + allPlacesCards + swissCards could be called
+          // if the three lists were of the same type !
+          // New code,
         ),
       ),
     );
