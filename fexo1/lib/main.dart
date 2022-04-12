@@ -16,31 +16,30 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    // var  fist = laureate1["firstname"];
-    // var second = laureate1["surname"];
-    // var moti = laureate1["motivation"];
-    final card = laureate1.map((e) =>
-        MyLaureat(firstname: e["firstname"] ?? "rien",
-            surname: e["surname"] ?? "rien",
-            motivation: e["motivation"] ?? "rien")
-    );
+    // final card = laureate1.map((e) =>
+    //     MyLaureat(firstname: e["firstname"] ?? "rien",
+    //         surname: e["surname"] ?? "rien",
+    //         motivation: e["motivation"] ?? "rien")
+    // );
+
     return MaterialApp(
       title: "je sais pas",
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text("View all Nobel prizes"),
-        ),
-        body: Center(
-          child: SizedBox(
-            child: ListView(
-              children:  [
-                ...card,
-              ],
-            ),
+          appBar: AppBar(
+            title: const Text("View all Nobel prizes"),
           ),
-        )
+          body: Center(
+            child: SizedBox(
+              child: ListView(
+                children: const [
+                  Nobel(prizeData: prize1)
+                ],
+              ),
+            ),
+          )
       ),
     );
   }
@@ -52,4 +51,36 @@ const laureate1 = [{
   "surname": "List",
   "motivation": "\"for the development of asymmetric organocatalysis\"",
   "share": "2"
-}];
+}
+];
+
+const prize1 = {
+  "year": "2021",
+  "category": "economics",
+  "laureates": [
+    {
+      "id": "1007",
+      "firstname": "David",
+      "surname": "Card",
+      "motivation": "\"for his empirical contributions to labour economics\"",
+      "share": "2"
+    },
+    {
+      "id": "1008",
+      "firstname": "Joshua",
+      "surname": "Angrist",
+      "motivation":
+      "\"for their methodological contributions to the analysis of causal relationships\"",
+      "share": "4"
+    },
+    {
+      "id": "1009",
+      "firstname": "Guido",
+      "surname": "Imbens",
+      "motivation":
+      "\"for their methodological contributions to the analysis of causal relationships\"",
+      "share": "4"
+    }
+  ]
+};
+
