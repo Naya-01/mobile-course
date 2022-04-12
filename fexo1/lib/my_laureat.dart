@@ -27,12 +27,13 @@ class MyLaureat extends StatelessWidget {
             Container(
               height: 50,
               color: Colors.blue,
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(motivation, style: const TextStyle(color: Colors.white)),
                 ],
               ),
+              // child: Text(motivation, style: const TextStyle(color: Colors.white), textAlign: TextAlign.center),
             ),
             SizedBox(
               height: 50,
