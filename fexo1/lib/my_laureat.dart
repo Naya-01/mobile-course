@@ -26,7 +26,7 @@ class MyLaureat extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(motivation),
+                  Text(motivation, style: const TextStyle(color: Colors.white)),
                 ],
               ),
             ),
@@ -70,11 +70,11 @@ class Nobel extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: Colors.blue,
+              color: Colors.deepPurpleAccent,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(year + " : " + category),
+                  Text(year + " : " + category, style: const TextStyle(color: Colors.white)),
                 ],
               ),
             ),
