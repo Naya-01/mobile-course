@@ -16,12 +16,16 @@ class MyLaureat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: SizedBox(
-      width: 600,
-      child: Card(
+      width: 300,
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.blue, width: 2)),
+        margin: const EdgeInsets.all(15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
+              height: 50,
               color: Colors.blue,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -30,12 +34,15 @@ class MyLaureat extends StatelessWidget {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(firstname + " " + surname),
-              ],
-            ),
+            SizedBox(
+              height: 50,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(firstname + " " + surname),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -64,7 +71,7 @@ class Nobel extends StatelessWidget {
 
     return Center(
         child: SizedBox(
-      width: 1000,
+      width: 500,
       child: Card(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -74,13 +81,18 @@ class Nobel extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(year + " : " + category, style: const TextStyle(color: Colors.white)),
+                  Text(year + " : " + category,
+                      style: const TextStyle(color: Colors.white)),
                 ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[...laureateWidgetList],
+            Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.deepPurpleAccent, width: 2)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[...laureateWidgetList],
+              ),
             ),
           ],
         ),

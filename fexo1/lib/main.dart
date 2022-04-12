@@ -62,7 +62,7 @@ const prize1 = {
       "id": "1007",
       "firstname": "David",
       "surname": "Card",
-      "motivation": "\"for his empirical contributions to labour economics\"",
+      "motivation": "\"for his empirical contributions to labour \n economics\"",
       "share": "2"
     },
     {
@@ -70,7 +70,7 @@ const prize1 = {
       "firstname": "Joshua",
       "surname": "Angrist",
       "motivation":
-      "\"for their methodological contributions to the analysis of causal relationships\"",
+      "\"for their methodological contributions to \n the analysis of causal relationships\"",
       "share": "4"
     },
     {
@@ -78,7 +78,7 @@ const prize1 = {
       "firstname": "Guido",
       "surname": "Imbens",
       "motivation":
-      "\"for their methodological contributions to the analysis of causal relationships\"",
+      "\"for their methodological contributions to \n the analysis of causal relationships\"",
       "share": "4"
     }
   ]
