@@ -1,9 +1,45 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fexo1/my_laureat.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
 }
+
+class Data {
+  final String year;
+  final String category;
+  final List laureates;
+
+  Data({required this.year,
+    required this.category,
+    required this.laureates});
+
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
+      year: json['year'],
+      category: json['category'],
+      laureates: json['laureates'],
+    );
+  }
+}
+
+Future<List<dynamic>> fetchData() async {
+  var url = Uri.parse('https://api.nobelprize.org/v1/prize.json');
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    Map<String, dynamic> jsonResponse = json.decode(response.body);
+    print("heloo");
+    print(jsonResponse["prizes"]);
+    return jsonResponse["prizes"];
+  } else {
+    throw Exception('Unexpected error occured!');
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,12 +55,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final card = laureate1.map((e) =>
-    //     MyLaureat(firstname: e["firstname"] ?? "rien",
-    //         surname: e["surname"] ?? "rien",
-    //         motivation: e["motivation"] ?? "rien")
-    // );
-
+    // final test =  fetchData();
+    // final NobelCard = [];
+    // print(test);
     return MaterialApp(
       title: "je sais pas",
       home: Scaffold(
@@ -34,7 +67,7 @@ class HomePage extends StatelessWidget {
           body: Center(
             child: SizedBox(
               child: ListView(
-                children: const [
+                children:  const [
                   Nobel(prizeData: prize1)
                 ],
               ),
