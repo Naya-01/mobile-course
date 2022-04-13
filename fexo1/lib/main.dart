@@ -34,11 +34,11 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  getData() async {
+  Future<List> getData() async {
     final listWidget = [];
     final data = await fetchData();
     for (var element in data) {
-      print("element");
+      // print("element");
       print(element);
       listWidget.add(
           Nobel(prizeData: element)
