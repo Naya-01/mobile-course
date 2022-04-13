@@ -9,31 +9,12 @@ void main() {
   runApp(const MyApp());
 }
 
-class Data {
-  final String year;
-  final String category;
-  final List laureates;
-
-  Data({required this.year,
-    required this.category,
-    required this.laureates});
-
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
-      year: json['year'],
-      category: json['category'],
-      laureates: json['laureates'],
-    );
-  }
-}
 
 Future<List<dynamic>> fetchData() async {
   var url = Uri.parse('https://api.nobelprize.org/v1/prize.json');
   final response = await http.get(url);
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonResponse = json.decode(response.body);
-    print("heloo");
-    print(jsonResponse["prizes"]);
     return jsonResponse["prizes"];
   } else {
     throw Exception('Unexpected error occured!');
@@ -53,11 +34,25 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  getData() async {
+    final listWidget = [];
+    final data = await fetchData();
+    for (var element in data) {
+      print("element");
+      print(element);
+      listWidget.add(
+          Nobel(prizeData: element)
+      );
+    }
+    return listWidget;
+  }
+
   @override
   Widget build(BuildContext context) {
     // final test =  fetchData();
     // final NobelCard = [];
     // print(test);
+    List<dynamic> test = getData() as List<dynamic>;
     return MaterialApp(
       title: "je sais pas",
       home: Scaffold(
@@ -67,8 +62,9 @@ class HomePage extends StatelessWidget {
           body: Center(
             child: SizedBox(
               child: ListView(
-                children:  const [
-                  Nobel(prizeData: prize1)
+                children:   [
+                  // Nobel(prizeData: prize1)
+                  ...test
                 ],
               ),
             ),
@@ -116,4 +112,5 @@ const prize1 = {
     }
   ]
 };
+
 
