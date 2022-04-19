@@ -48,7 +48,7 @@ class MyCard extends StatelessWidget {
             ),
           ),
           /*3*/
-          const FavoriteWidget(),
+          const FavoriteWidget(starColor: Colors.blue),
         ],
       ),
     );

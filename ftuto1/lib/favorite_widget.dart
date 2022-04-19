@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+
 class FavoriteWidget extends StatefulWidget {
-  const FavoriteWidget({Key? key}) : super(key: key);
+  final Color starColor;
+
+  const FavoriteWidget({Key? key, this.starColor = Colors.red})
+      : super(key: key);
+
   @override
   State<FavoriteWidget> createState() => _FavoriteWidgetState();
 }
+
 class _FavoriteWidgetState extends State<FavoriteWidget> {
   bool _isFavorited = false;
   int _favoriteCount = 41;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,9 +27,10 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
             icon: (_isFavorited
                 ? const Icon(Icons.star)
                 : const Icon(Icons.star_border)),
-            color: Colors.red[500],
+            color: widget.starColor, // UPDATE to use the parameter passed by the parent
             onPressed: _toggleFavorite,
           ),
+
         ),
         SizedBox(
           width: 18,
@@ -33,6 +41,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
       ],
     );
   }
+
   void _toggleFavorite() {
     setState(() {
       if (_isFavorited) {
