@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ftuto1/favorite_widget.dart';
 
 class MyCard extends StatelessWidget {
   final String title1;
@@ -47,11 +48,7 @@ class MyCard extends StatelessWidget {
             ),
           ),
           /*3*/
-          Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          Text(DEFAULT_LIKE_COUNT.toString()),
+          const FavoriteWidget(),
         ],
       ),
     );
