@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.navigate_next),
+            icon: const Icon(Icons.sms),
             tooltip: 'Go to the next page',
             onPressed: () {
               Navigator.push(context, MaterialPageRoute<void>(
