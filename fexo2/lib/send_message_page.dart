@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
-class SendMessage extends StatelessWidget {
-  final int click;
-
-  const SendMessage({
-    Key? key,
-    required this.click,
-  }) : super(key: key);
+class SendMessage extends StatefulWidget {
+  const SendMessage({Key? key}) : super(key: key);
 
   @override
+  State<SendMessage> createState() => _SendMessageState();
+}
+
+class _SendMessageState extends State<SendMessage> {
+  @override
   Widget build(BuildContext context) {
+    final count = ModalRoute.of(context)!.settings.arguments;
     final _formKey = GlobalKey<FormState>();
+    final nameController = TextEditingController();
+    final phoneController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -21,13 +24,14 @@ class SendMessage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Hi, you have clicked $click times sinces you started the app!',
-              style: const TextStyle(fontSize: 24),
+              'Hi, you have clicked $count times sinces you started the app!',
+              style: const TextStyle(fontSize: 16),
             ),
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0),
             ),
-            const MyCustomForm(),
+            MyCustomForm(
+                name: nameController, phone: phoneController, formu: _formKey),
           ],
         ),
       ),
@@ -35,16 +39,20 @@ class SendMessage extends StatelessWidget {
         // When the user presses the button, show an alert dialog containing
         // the text that the user has entered into the text field.
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return const AlertDialog(
-                // Retrieve the text the that user has entered by using the
-                // TextEditingController.
-                content: Text("envoyer message"),
-              );
-            },
-          );
+          if (_formKey.currentState!.validate()) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  // Retrieve the text the that user has entered by using the
+                  // TextEditingController.
+                  content: Text(
+
+                    "Hello dear ${nameController.text}, you would like to send a message to this phone number : ${phoneController.text}"),
+                );
+              },
+            );
+          }
         },
         tooltip: 'Send message!',
         child: const Icon(Icons.send),
@@ -54,7 +62,13 @@ class SendMessage extends StatelessWidget {
 }
 
 class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({Key? key}) : super(key: key);
+  final TextEditingController name;
+  final TextEditingController phone;
+  final formu;
+
+  const MyCustomForm(
+      {Key? key, required this.name, required this.phone, required this.formu})
+      : super(key: key);
 
   @override
   MyCustomFormState createState() {
@@ -63,22 +77,17 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class MyCustomFormState extends State<MyCustomForm> {
-  final _formKey = GlobalKey<FormState>();
-
-
   @override
   Widget build(BuildContext context) {
-    String name="";
-    String phone="";
+    final name = widget.name.text;
+    final phone = widget.phone.text;
     return Form(
-      key: _formKey,
+      key: widget.formu,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           TextFormField(
-            onChanged: (text){
-              name=text;
-            },
+            controller: widget.name,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Enter a name',
@@ -94,9 +103,7 @@ class MyCustomFormState extends State<MyCustomForm> {
             padding: EdgeInsets.symmetric(vertical: 16.0),
           ),
           TextFormField(
-            onChanged: (text){
-              phone=text;
-            },
+            controller: widget.phone,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               hintText: 'Enter a phone number',
@@ -108,25 +115,8 @@ class MyCustomFormState extends State<MyCustomForm> {
               return null;
             },
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                     SnackBar(
-                       content:
-                       Text('Hello dear $name, you would like to send a message to this phone number : $phone !'),
-                     ),
-                  );
-                }
-              },
-              child: const Text('Submit'),
-            ),
-          ),
         ],
       ),
     );
   }
 }
-

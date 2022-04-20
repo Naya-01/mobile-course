@@ -1,4 +1,5 @@
 import 'package:fexo2/my_home_page.dart';
+import 'package:fexo2/send_message_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/home' : (context) => const MyHomePage(),
+        '/send' : (context) => const SendMessage(),
       },
       title: 'Flutter Demo',
       theme: ThemeData(
