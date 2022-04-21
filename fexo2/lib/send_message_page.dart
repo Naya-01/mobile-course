@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_sms/flutter_sms.dart';
 
 class SendMessage extends StatefulWidget {
   const SendMessage({Key? key}) : super(key: key);
@@ -42,30 +43,25 @@ class _SendMessageState extends State<SendMessage> {
         // the text that the user has entered into the text field.
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            showDialog(
-              context: context,
-              builder: (context) {
-                if(!kIsWeb) {
-                  return AlertDialog(
-                    // Retrieve the text the that user has entered by using the
-                    // TextEditingController.
-                    content:
-                    Text(
-                        "Hello dear ${nameController.text}, you would like to send a message to this phone number : ${phoneController.text}"
-                    ),
-                  );
-                }else{
-                  return const AlertDialog(
-                    // Retrieve the text the that user has entered by using the
-                    // TextEditingController.
-                    content:
-                    Text(
-                        "Sorry, you cannot send SMS on this platform !"
-                    ),
-                  );
-                }
-              },
-            );
+            if(kIsWeb){
+              showDialog(
+                context: context,
+                builder: (context) {
+                    return const AlertDialog(
+                      // Retrieve the text the that user has entered by using the
+                      // TextEditingController.
+                      content:
+                      Text(
+                          "Sorry, you cannot send SMS on this platform !"
+                      ),
+                    );
+                  
+                },
+              ); 
+            }else{
+              List<String> recipents = [phoneController.text];
+              _sendSMS("Hello dear ${nameController.text}, you have clicked $count times", recipents);
+            }
           }
         },
         tooltip: 'Send message!',
@@ -116,7 +112,7 @@ class MyCustomFormState extends State<MyCustomForm> {
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
           ),
-          if(!kIsWeb) ...[
+          if(!kIsWeb)
             TextFormField(
               controller: widget.phone,
               decoration: const InputDecoration(
@@ -130,9 +126,16 @@ class MyCustomFormState extends State<MyCustomForm> {
                 return null;
               },
             ),
-          ],
         ],
       ),
     );
   }
+}
+
+void _sendSMS(String message, List<String> recipents) async {
+  String _result = await sendSMS(message: message, recipients: recipents)
+      .catchError((onError) {
+    print(onError);
+  });
+  print(_result);
 }
