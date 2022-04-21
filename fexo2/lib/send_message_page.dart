@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SendMessage extends StatefulWidget {
   const SendMessage({Key? key}) : super(key: key);
@@ -43,13 +45,25 @@ class _SendMessageState extends State<SendMessage> {
             showDialog(
               context: context,
               builder: (context) {
-                return AlertDialog(
-                  // Retrieve the text the that user has entered by using the
-                  // TextEditingController.
-                  content: Text(
-
-                    "Hello dear ${nameController.text}, you would like to send a message to this phone number : ${phoneController.text}"),
-                );
+                if(!kIsWeb) {
+                  return AlertDialog(
+                    // Retrieve the text the that user has entered by using the
+                    // TextEditingController.
+                    content:
+                    Text(
+                        "Hello dear ${nameController.text}, you would like to send a message to this phone number : ${phoneController.text}"
+                    ),
+                  );
+                }else{
+                  return const AlertDialog(
+                    // Retrieve the text the that user has entered by using the
+                    // TextEditingController.
+                    content:
+                    Text(
+                        "Sorry, you cannot send SMS on this platform !"
+                    ),
+                  );
+                }
               },
             );
           }
@@ -102,19 +116,21 @@ class MyCustomFormState extends State<MyCustomForm> {
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
           ),
-          TextFormField(
-            controller: widget.phone,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter a phone number',
+          if(!kIsWeb) ...[
+            TextFormField(
+              controller: widget.phone,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a phone number',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please a phone number';
+                }
+                return null;
+              },
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please a phone number';
-              }
-              return null;
-            },
-          ),
+          ],
         ],
       ),
     );
