@@ -1,7 +1,10 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'domain/Film.dart';
 
 void main() {
   runApp(const MyApp());
@@ -64,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             var filmInsteadOfCounter =
             await _getOneFilm(Random().nextInt(MOVIE_COUNT) + 1);
             setState(() {
-              _movieToShow = filmInsteadOfCounter;
+              _movieToShow = filmInsteadOfCounter.title; // UPDATE
             });
           } catch (e) {
             developer.log('Exception in onPressed : $e');
@@ -77,16 +80,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-Future<String> _getOneFilm([int id = 1]) async {
+Future<Film> _getOneFilm([int id = 1]) async { // UPDATE
   try {
     var response = await http
         .get(Uri.parse('https://film-api-vinci.herokuapp.com/films/$id'));
     if (response.statusCode == 200)
-      return response.body.toString();
+      return Film.fromJson(jsonDecode(response.body)); // UPDATE
     else
-      return "Failed to load the movie! \nStatus code :${response.statusCode}";
-  } catch (err) {
-    developer.log('Exception in _getOneFilm : $err');
-    rethrow;
+      throw Exception("Failed to load the movie! \nStatus code :${response.statusCode}"); // UPDATE
+      } catch (err) {
+      developer.log('Exception in _getOneFilm : $err');
+      rethrow;
+    }
   }
-}
