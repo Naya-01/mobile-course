@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<Film>> _getAllFilms(http.Client client) async {
     await Future.delayed(
-        Duration(seconds: 5)); //New code
+        Duration(seconds: 2)); //New code
     final response = await client
         .get(Uri.parse('https://film-api-vinci.herokuapp.com/films'));
     // Use the compute function to run parseFilms in a separate isolate.
@@ -83,17 +83,26 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Movie you fetched:',
             ),
-            FutureBuilder<List<Film>>( // Update
-              future: futureListFilm, // Update
+            FutureBuilder<List<Film>>(
+              future: _getAllFilms(http.Client()),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Text(snapshot.data!.join("\n")); // Update
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(snapshot.data![index].toString()),
+                      );
+                    },
+                  );
                 } else if (snapshot.hasError) {
                   return Text('${snapshot.error}');
                 }
                 // By default, show a loading spinner.
                 return const CircularProgressIndicator();
               },
+
             )
 
           ],
