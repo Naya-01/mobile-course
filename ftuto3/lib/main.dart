@@ -38,13 +38,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _movieToShow = "";
   static const MOVIE_COUNT = 9;
+  late Future<Film> futureFilm;
 
 
 
   @override
   void initState() {
     super.initState();
-    _catchOneFilm();
+    futureFilm = _getOneFilm(Random().nextInt(MOVIE_COUNT) + 1);
   }
   _catchOneFilm() async {
     var movie = await _getOneFilm(Random().nextInt(MOVIE_COUNT) + 1);
@@ -66,13 +67,19 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'Movie you fetched:',
             ),
-            Text(
-              '$_movieToShow',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .headline4,
-            ),
+            FutureBuilder<Film>(
+              future: futureFilm,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(snapshot.data!.title);
+                } else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                // By default, show a loading spinner.
+                return const CircularProgressIndicator();
+              },
+            )
+
           ],
         ),
       ),
@@ -93,6 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Future<Film> _getOneFilm([int id = 1]) async { // UPDATE
   try {
+    await Future.delayed(
+        Duration(seconds: 2)); //New code
     var unescape = HtmlUnescape();
     var response = await http
         .get(Uri.parse('https://film-api-vinci.herokuapp.com/films/$id'));
