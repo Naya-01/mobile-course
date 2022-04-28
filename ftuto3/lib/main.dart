@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:html_unescape/html_unescape.dart';
 
 import 'domain/Film.dart';
 
@@ -38,6 +39,20 @@ class _MyHomePageState extends State<MyHomePage> {
   String _movieToShow = "";
   static const MOVIE_COUNT = 9;
 
+
+
+  @override
+  void initState() {
+    super.initState();
+    _catchOneFilm();
+  }
+  _catchOneFilm() async {
+    var movie = await _getOneFilm(Random().nextInt(MOVIE_COUNT) + 1);
+    setState(() {
+      _movieToShow = movie.title;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,11 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           try {
-            var filmInsteadOfCounter =
-            await _getOneFilm(Random().nextInt(MOVIE_COUNT) + 1);
-            setState(() {
-              _movieToShow = filmInsteadOfCounter.title; // UPDATE
-            });
+            _catchOneFilm;
           } catch (e) {
             developer.log('Exception in onPressed : $e');
           }
@@ -82,11 +93,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Future<Film> _getOneFilm([int id = 1]) async { // UPDATE
   try {
+    var unescape = HtmlUnescape();
     var response = await http
         .get(Uri.parse('https://film-api-vinci.herokuapp.com/films/$id'));
-    if (response.statusCode == 200)
-      return Film.fromJson(jsonDecode(response.body)); // UPDATE
-    else
+    if (response.statusCode == 200) {
+      return Film.fromJson(jsonDecode(unescape.convert(response.body)));
+    } else
       throw Exception("Failed to load the movie! \nStatus code :${response.statusCode}"); // UPDATE
       } catch (err) {
       developer.log('Exception in _getOneFilm : $err');
