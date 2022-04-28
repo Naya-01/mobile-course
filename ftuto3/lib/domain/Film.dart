@@ -22,4 +22,9 @@ class Film {
       link: json['link'],
     );
   }
+
+  @override
+  String toString() {
+    return "${this.id} : ${this.title}";
+  }
 }
