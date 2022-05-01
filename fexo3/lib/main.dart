@@ -52,6 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<List<Film>> _getAllFilms(http.Client client) async {
+    await Future.delayed(
+        Duration(seconds: 3));
     final response =
         await client.get(Uri.parse('https://ghibliapi.herokuapp.com/films'));
     // Use the compute function to run parseFilms in a separate isolate.
@@ -70,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FutureBuilder<List<Film>>(
-              future: _getAllFilms(http.Client()),
+              future: futureListFilm,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Expanded(
@@ -89,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   return Text('${snapshot.error}');
                 }
                 // By default, show a loading spinner.
-                return const CircularProgressIndicator();
+                return  Image.network('https://image.tmdb.org/t/p/w600_and_h900_bestv2/npOnzAbLh6VOIu3naU5QaEcTepo.jpg');
               },
             )
           ],
