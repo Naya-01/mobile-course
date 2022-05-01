@@ -78,23 +78,22 @@ class _MyHomePageState extends State<MyHomePage> {
                     future: futureListFilm,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        final listWidget=[];
-                        for (var film in snapshot.data!) {
-                          listWidget.add(FilmCard(
-                            date: film.release_date,
-                            description: film.description,
-                            director: film.director,
-                            score: film.rt_score,
-                            time: film.running_time,
-                            title: film.title,
-                            image: film.image,
-                          ));
-                        }
-                        return ListView(
-                          children: [
-                            ...listWidget
-                          ],
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index){
+                            return FilmCard(
+                                date: snapshot.data![index].release_date,
+                                title: snapshot.data![index].title,
+                                score: snapshot.data![index].rt_score,
+                                time: snapshot.data![index].running_time,
+                                director: snapshot.data![index].director,
+                                description: snapshot.data![index].description,
+                                image: snapshot.data![index].image);
+                          },
+
                         );
+
                       } else if (snapshot.hasError) {
                         return Text('${snapshot.error}');
                       }
