@@ -3,14 +3,14 @@ import 'package:flutter/foundation.dart';
 import '../domain/Film.dart';
 import 'package:http/http.dart' as http;
 
-class MoviesRepository {
+class FilmsService {
 
-  MoviesRepository();
+  FilmsService();
 
    final http.Client client = http.Client();
 
   Future<List<Film>> getAllFilms() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     final response =
         await client.get(Uri.parse('https://ghibliapi.herokuapp.com/films'));
     // Use the compute function to run parseFilms in a separate isolate.
