@@ -14,7 +14,7 @@ class FilmModel extends ChangeNotifier {
   late Future<List<Film>> _films;
   Future<List<Film>> get films => _films;
 
-  void initBooleanList(int size) async {
+  void initBooleanList(int size) {
     listBool = List.filled(size, _check);
   }
 
@@ -29,7 +29,7 @@ class FilmModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getAllFilm() async {
+  void getAllFilm()  {
     _films = movies.getAllFilms();
   }
 }
