@@ -15,15 +15,16 @@ class MyHomePage  extends StatefulWidget {
 
 class _MyHomePage  extends State<MyHomePage > {
 
-  final FilmsService  movies = FilmsService();
+  late Future<List<Film>> futureFilms;
+  final FilmsService movies = FilmsService();
+  @override
+  void initState() {
+    Provider.of<FilmModel>(context, listen: false).getAllFilm();
+    futureFilms = Provider.of<FilmModel>(context, listen: false).films;
+    // futureFilms = movies.getAllFilms();
+    super.initState();
+  }
 
-  // late Future<List<Film>> futureListFilm;
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   futureListFilm = movies.getAllFilms();
-  // }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -45,7 +46,7 @@ class _MyHomePage  extends State<MyHomePage > {
             children: <Widget>[
               Expanded(
                   child: FutureBuilder<List<Film>>(
-                    future: movies.getAllFilms(),
+                    future: futureFilms,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         Provider.of<FilmModel>(context, listen: false).initBooleanList(snapshot.data!.length);
