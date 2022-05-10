@@ -11,8 +11,7 @@ class FilmModel extends ChangeNotifier {
   bool _check = false;
   bool get check => _check;
 
-  late Future<List<Film>> _films;
-  Future<List<Film>> get films => _films;
+  late Future<List<Film>> getAllFilms = movies.getAllFilms();
 
   void initBooleanList(int size) {
     listBool = List.filled(size, _check);
@@ -29,7 +28,4 @@ class FilmModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getAllFilm()  {
-    _films = movies.getAllFilms();
-  }
 }
